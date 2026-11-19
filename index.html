@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F3F1ED" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F100E" media="(prefers-color-scheme: dark)">
+<title>Panel TPC</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23C1F52F'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='Arial' font-weight='700' font-size='12' fill='%231B2300'%3ETPC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+
+<!-- Acceso -->
+<section class="lock" id="lock">
+  <form class="lock-card" id="lock-form" autocomplete="off">
+    <span class="mark">TPC</span>
+    <h1>Panel de The Pickle Center</h1>
+    <p>Los datos están cifrados. Escribe la contraseña para verlos en este dispositivo.</p>
+    <label for="pass">Contraseña</label>
+    <input id="pass" type="password" autocomplete="current-password" required>
+    <label class="check"><input type="checkbox" id="remember" checked> Recordar en este dispositivo</label>
+    <p class="lock-err" id="lock-err" hidden>La contraseña no es correcta.</p>
+    <button type="submit" class="btn-primary" id="lock-btn">Entrar</button>
+  </form>
+</section>
+
+<!-- App -->
+<div class="app" id="app" hidden>
+  <header class="topbar">
+    <div class="brand"><span class="mark">TPC</span><span class="brand-t">Panel</span></div>
+    <nav class="seg" id="views-top" aria-label="Vistas">
+      <button data-view="inicio" aria-current="page">Inicio</button>
+      <button data-view="lista">Lista</button>
+      <button data-view="agenda">Agenda</button>
+    </nav>
+    <div class="top-right">
+      <span class="updated" id="updated"></span>
+      <button class="icon-btn" id="logout" type="button" title="Cerrar sesión en este dispositivo" aria-label="Cerrar sesión en este dispositivo">Salir</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- INICIO -->
+    <section class="view" id="v-inicio">
+      <div class="hoy-head">
+        <h1>Hoy</h1>
+        <p class="lead" id="frase"></p>
+      </div>
+      <div class="hoy-grid">
+        <article class="tile tile-toca" id="tile-toca">
+          <div class="tile-head"><span class="tile-l"><i class="dot" data-st="toca"></i>Te toca</span><b class="tile-n" id="n-toca"></b></div>
+          <ul class="tile-list" id="toca-top"></ul>
+          <button class="tile-more" data-go="lista" data-st="toca" type="button">Ver todo lo que te toca</button>
+        </article>
+        <article class="tile tile-bloq" id="tile-bloq">
+          <div class="tile-head"><span class="tile-l"><i class="dot" data-st="bloqueado"></i>Bloqueado</span><b class="tile-n" id="n-bloq"></b></div>
+          <ul class="tile-list" id="bloq-top"></ul>
+        </article>
+        <div class="minis" id="minis"></div>
+      </div>
+
+      <div class="map-wrap">
+        <div class="map-head">
+          <div>
+            <h2 id="map-title">Mapa del proyecto</h2>
+            <p class="sub" id="map-sub">Cada burbuja es un área. El anillo muestra cómo están sus fichas. Toca una para entrar.</p>
+          </div>
+          <button class="btn-ghost" id="map-back" type="button" hidden>Todas las áreas</button>
+        </div>
+        <div class="area-chips" id="area-chips" role="tablist" aria-label="Áreas"></div>
+        <div class="map-body">
+          <div class="viz" id="viz"><svg id="svg" role="img" aria-label="Mapa de burbujas del proyecto"></svg></div>
+          <aside class="side" id="side"></aside>
+        </div>
+        <div class="map-foot">
+          <div class="legend" id="legend"></div>
+          <label class="check"><input type="checkbox" id="show-parados"> Ver lo parado o descartado</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- LISTA -->
+    <section class="view" id="v-lista" hidden>
+      <div class="list-head">
+        <h1>Lista</h1>
+        <div class="search"><input id="q" type="search" placeholder="Buscar persona, marca, club, evento…" aria-label="Buscar en todo el proyecto" autocomplete="off"></div>
+      </div>
+      <div class="filters">
+        <div class="chips" id="f-area" aria-label="Filtrar por área"></div>
+        <div class="chips" id="f-st" aria-label="Filtrar por estado"></div>
+      </div>
+      <div id="list-body" class="groups"></div>
+    </section>
+
+    <!-- AGENDA -->
+    <section class="view" id="v-agenda" hidden>
+      <div class="list-head"><h1>Agenda</h1><p class="sub">Todo lo que tiene fecha, de lo más cercano a lo más lejano.</p></div>
+      <div id="agenda-body" class="agenda"></div>
+    </section>
+  </main>
+
+  <nav class="tabbar" id="views-bottom" aria-label="Vistas">
+    <button data-view="inicio" aria-current="page"><span>Inicio</span></button>
+    <button data-view="lista"><span>Lista</span></button>
+    <button data-view="agenda"><span>Agenda</span></button>
+  </nav>
+</div>
+
+<!-- Ficha -->
+<div class="scrim" id="scrim" hidden></div>
+<aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" hidden></aside>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
